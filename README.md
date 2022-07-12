@@ -41,8 +41,7 @@ I sadly didn't have time to design a well-styled app, I spend most of my time on
 
 # Tests
 
-Sadly I only didn't have time to write all tests. But perhaps that's expected (?). 
-Regardless, `RepoRepositoryImplTest`, `End2EndTest` and `RepoListFragmentTest` should give you a sense of what my unit tests look like.
+I wrote some of the most important tests for this project: `RepoRepositoryImplTest`, `End2EndTest` and `RepoListFragmentTest` should give you a sense of what my unit tests look like.
 
 
 # No git history
