@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">ABN Hub</string>
+
+    <string name="center_error_text">There is an error:\n %s</string>
+    <string name="ok">OK</string>
+
+    <string name="repo_item_visibility">Visibility: %s</string>
+    <string name="repo_item_private">Private: %b</string>
+
+    <string name="cd_back_to_home_screen">Back to home screen</string>
+
+    <string name="loading">Loading</string>
+    <string name="error">Error</string>
+    <string name="no_more_data">No more data</string>
+    <string name="error_getting_reponame">Error in getting repo\'s name</string>
+
+    <string name="repo_avatar_image">Repo\'s avatar Image</string>
+    <string name="screen_repodetail_fullname">Full Name: %s</string>
+    <string name="screen_repodetail_description">Description: %s</string>
+    <string name="screen_repodetail_visibility">Visibility: %s</string>
+    <string name="screen_repodetail_private">Private: %s</string>
+
+    <string name="api_errors_no_internet">There is no Internet connection</string>
+    <string name="api_errors_http403">The request is forbidden</string>
+    <string name="api_errors_undefined">Undefined error:\n%s</string>
+    <string name="open_repository">Open Repository</string>
+
+</resources>

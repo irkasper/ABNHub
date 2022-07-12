@@ -1,0 +1,175 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.abnamro.abnhub"
+        minSdk 21
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.abnamro.abnhub.test_util.CustomTestRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        dataBinding true
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion compose_compiler_version
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+
+            // https://github.com/Kotlin/kotlinx.coroutines#avoiding-including-the-debug-infrastructure-in-the-resulting-apk
+            excludes += "DebugProbesKt.bin"
+        }
+    }
+    lint {
+        checkDependencies true
+    }
+
+}
+
+dependencies {
+
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "com.google.android.material:material:$material_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+
+    implementation "androidx.core:core-ktx:$core_ktx_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+//    implementation "androidx.lifecycle:lifecycle-common:$androidx_lifecycle"
+//    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+//    androidTestImplementation "androidx.lifecycle:lifecycle-runtime-testing:$androidx_lifecycle"
+
+
+    // navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+    androidTestImplementation "androidx.navigation:navigation-testing:$navigation_version"
+
+    // Hilt Dependency Injection
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    // Hilt Testing
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    final swipe_refresh_layout_because = "For pull-to-refresh feature"
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayout_version")
+            { because(swipe_refresh_layout_because) }
+
+    // Unit and Instrumented Test
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test.ext:junit:$androidx_test_junit_version"
+    //
+    final google_truth_because = "Google Truth library for better assertions - Apache-2.0 license"
+    testImplementation("com.google.truth:truth:$google_truth_version") { because(google_truth_because) }
+    androidTestImplementation("com.google.truth:truth:$google_truth_version") { because(google_truth_because) }
+    //
+    final mockk_because = "For mocking dependencies in unit tests - Apache-2.0 license"
+    testImplementation ("io.mockk:mockk:$mockk_version"){ because(mockk_because) }
+    testImplementation ("io.mockk:mockk-agent-jvm:$mockk_version"){ because(mockk_because) }
+    final kotlin_reflect_because = "For mockk library correctly working"
+    testImplementation ("org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"){ because(kotlin_reflect_because) }
+    // Espresso dependencies
+//    testImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    implementation "androidx.test.espresso:espresso-idling-resource:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
+    //
+    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
+
+    // Kotlinx Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_android_version"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines_version"
+
+    // Room DB
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    testImplementation "androidx.room:room-testing:$room_version"
+    androidTestImplementation "androidx.room:room-testing:$room_version"
+
+    // ### Jetpack Compose ####
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    // Tooling support (Previews, etc.)
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+    implementation "androidx.compose.foundation:foundation:$compose_version"
+    // Material Design
+    implementation "androidx.compose.material:material:$compose_version"
+    // Material design icons
+    implementation "androidx.compose.material:material-icons-core:$compose_version"
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
+    // Integration with activities
+    implementation "androidx.activity:activity-compose:$activity_compose_version"
+    // Integration with ViewModels
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
+    // Compose Testing
+    testImplementation "androidx.compose.ui:ui-test:$compose_version"
+    androidTestImplementation "androidx.compose.ui:ui-test:$compose_version"
+    // Test rules and transitive dependencies:
+    testImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+    // Needed for createComposeRule, but not createAndroidComposeRule:
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+    // Animation
+    implementation "androidx.compose.animation:animation:$compose_version"
+    implementation "androidx.compose.animation:animation-core:$compose_version"
+//    implementation "androidx.compose.animation:animation-graphics:compose_animation"
+    // Other Compose Libs
+    implementation "com.google.android.material:compose-theme-adapter:$compose_theme_adapter_version"
+//    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc01"
+//    implementation "androidx.paging:paging-compose:1.0.0-alpha12"
+
+    // Navigation Compose
+    implementation "androidx.navigation:navigation-compose:$navigation_compose"
+    implementation "androidx.hilt:hilt-navigation-compose:$hiltComposeNavigation"
+    implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
+//    androidTestImplementation "androidx.navigation:navigation-testing:$navigation_compose"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_logging_version"
+//    implementation 'com.google.code.gson:gson:2.9.0'
+
+    // Paging library
+//    implementation "androidx.paging:paging-runtime:$paging_version"
+//    // alternatively - without Android dependencies for tests
+//    testImplementation "androidx.paging:paging-common:$paging_version"
+
+    // Image loaders
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    implementation "io.coil-kt:coil-compose:$coil_version"
+
+    // Other Libs
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+}
